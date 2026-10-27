@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise for You 💗</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  text-align: center;
+  color: #713c59;
+  background: linear-gradient(135deg, #fff0f6, #fce4ec, #f3e5f5);
+  min-height: 100vh;
+}
+
+main {
+  max-width: 720px;
+  margin: auto;
+  padding: 35px 18px;
+}
+
+h1 { font-size: clamp(2rem, 7vw, 3.5rem); }
+h2 { color: #bd5688; }
+
+.card {
+  background: rgba(255,255,255,.85);
+  padding: 25px;
+  border-radius: 24px;
+  margin: 22px 0;
+  box-shadow: 0 8px 25px #c27a9c20;
+}
+
+button {
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 20px;
+  margin: 6px;
+  background: #e98ab5;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+button:hover { transform: scale(1.05); }
+.hidden { display: none; }
+
+#letter {
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
+}
+
+#message { font-weight: bold; min-height: 28px; }
+</style>
+</head>
+
+<body>
+<main>
+  <p>🌷 A tiny corner of the internet, made just for you 🌷</p>
+
+  <h1>Happy Birthday, Bestie! 🎂</h1>
+  <p>Someone has a little surprise waiting for you...</p>
+
+  <button onclick="startSurprise()">
+    Open your surprise 💗
+  </button>
+
+  <section id="surprise" class="hidden">
+    <div class="card">
+      <h2>💌 A little letter for you</h2>
+      <p>There's something I wanted you to know...</p>
+      <button onclick="revealLetter()">Open my letter</button>
+      <p id="letter" class="hidden"></p>
+    </div>
+
+    <div class="card">
+      <h2>🧠 Friendship quiz</h2>
+      <p id="question">Which word best describes our friendship?</p>
+      <button onclick="answer('A')">Unforgettable</button>
+      <button onclick="answer('B')">Ordinary</button>
+      <p id="quizResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>😂 The bestie challenge</h2>
+      <p>Can you handle one extremely silly question?</p>
+      <button onclick="funGame()">Challenge me!</button>
+      <p id="gameResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>💗 Find the secret messages</h2>
+      <p>Tap the hearts to uncover your surprises.</p>
+      <button onclick="secretMessage(0)">💗</button>
+      <button onclick="secretMessage(1)">💗</button>
+      <button onclick="secretMessage(2)">💗</button>
+      <p id="secretResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>🎵 A little birthday magic</h2>
+      <p>Turn on a tiny melody made by code.</p>
+      <button onclick="toggleMusic()" id="musicButton">
+        Play birthday melody 🎶
+      </button>
+    </div>
+
+    <h2>Stay amazing, birthday girl! 🌸</h2>
+    <button onclick="celebrate()">More hearts, please! 💕</button>
+  </section>
+
+  <p id="message"></p>
+  <p>Made with 💗 and a little bit of code.</p>
+</main>
+
+<script>
+// Personalize this letter later!
+const myLetter = `Dear Bestie,
+
+Happy Birthday! 🥹💗
+
+I'm so grateful to have you in my life.
+Thank you for the laughs, the memories,
+and all the little moments that matter.
+
+I hope this year brings you happiness,
+adventures, and everything you dream of.
+
+Never forget how special you are!
+
+With lots of love,
+Your best friend 💌`;
+
+// Show the surprise
+function startSurprise() {
+  document.getElementById("surprise").classList.remove("hidden");
+  document.getElementById("message").textContent =
+    "Your little world of surprises is now unlocked! ✨";
+  celebrate();
+}
+
+// Reveal the letter
+function revealLetter() {
+  const letter = document.getElementById("letter");
+  letter.textContent = myLetter;
+  letter.classList.remove("hidden");
+}
+
+// Friendship quiz
+function answer(choice) {
+  const result = document.getElementById("quizResult");
+
+  if (choice === "A") {
+    result.textContent = "Correct! Our friendship is one of a kind! 💗";
+  } else {
+    result.textContent = "Wrong! This friendship is LEGENDARY 😂";
+  }
+}
+
+// Funny mini-game
+function funGame() {
+  const jokes = [
+    "Your bestie deserves an award for tolerating you! 🏆",
+    "Breaking news: Birthday girl is officially too fabulous! 📰",
+    "Doctor's advice: More cake, less stress! 🍰",
+    "Warning: Excessive birthday happiness detected! 🚨"
+  ];
+
+  const randomIndex = Math.floor(Math.random() * jokes.length);
+  document.getElementById("gameResult").textContent = jokes[randomIndex];
+}
+
+// Hidden messages
+const secrets = [
+  "You make ordinary days feel special. 🌷",
+  "Never stop chasing your dreams. ✨",
+  "No matter what, keep smiling. 💗"
+];
+
+function secretMessage(index) {
+  document.getElementById("secretResult").textContent = secrets[index];
+}
+
+// Floating hearts
+function celebrate() {
+  for (let i = 0; i < 18; i++) {
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.textContent = ["💗", "💕", "💖", "🌸"][
+      Math.floor(Math.random() * 4)
+    ];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6500);
+  }
+}
+
+// Simple generated melody using Web Audio
+let audioContext;
+let musicTimer;
+let noteIndex = 0;
+
+function toggleMusic() {
+  const button = document.getElementById("musicButton");
+
+  if (musicTimer) {
+    clearInterval(musicTimer);
+    musicTimer = null;
+    button.textContent = "Play birthday melody 🎶";
+    return;
+  }
+
+  audioContext = audioContext ||
+    new (window.AudioContext || window.webkitAudioContext)();
+
+  audioContext.resume();
+
+  const notes = [523.25, 659.25, 783.99, 659.25, 587.33, 659.25, 523.25];
+
+  function playNote() {
+    const oscillator = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = notes[noteIndex % notes.length];
+    volume.gain.setValueAtTime(0.08, audioContext.currentTime);
+    volume.gain.exponentialRampToValueAtTime(
+      0.001, audioContext.currentTime + 0.35
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.35);
+
+    noteIndex++;
+  }
+
+  playNote();
+  musicTimer = setInterval(playNote, 450);
+  button.textContent = "Pause melody 🔇";
+}
+</script>
+</body>
+</html
